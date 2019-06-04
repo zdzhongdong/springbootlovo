@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lovo.mybatis.mapper.TeacherEntityMapper">
+  <resultMap id="BaseResultMap" type="com.lovo.model.TeacherEntity">
+    <id column="teacherid" jdbcType="VARCHAR" property="teacherid" />
+    <result column="teachername" jdbcType="VARCHAR" property="teachername" />
+    <result column="classname" jdbcType="VARCHAR" property="classname" />
+    <result column="teacherbirthday" jdbcType="DATE" property="teacherbirthday" />
+    <result column="teachesex" jdbcType="VARCHAR" property="teachesex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    teacherid, teachername, classname, teacherbirthday, teachesex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_teacher
+    where teacherid = #{teacherid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_teacher
+    where teacherid = #{teacherid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lovo.model.TeacherEntity">
+    insert into t_teacher (teacherid, teachername, classname, 
+      teacherbirthday, teachesex)
+    values (#{teacherid,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, 
+      #{teacherbirthday,jdbcType=DATE}, #{teachesex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lovo.model.TeacherEntity">
+    insert into t_teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherid != null">
+        teacherid,
+      </if>
+      <if test="teachername != null">
+        teachername,
+      </if>
+      <if test="classname != null">
+        classname,
+      </if>
+      <if test="teacherbirthday != null">
+        teacherbirthday,
+      </if>
+      <if test="teachesex != null">
+        teachesex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherbirthday != null">
+        #{teacherbirthday,jdbcType=DATE},
+      </if>
+      <if test="teachesex != null">
+        #{teachesex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lovo.model.TeacherEntity">
+    update t_teacher
+    <set>
+      <if test="teachername != null">
+        teachername = #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherbirthday != null">
+        teacherbirthday = #{teacherbirthday,jdbcType=DATE},
+      </if>
+      <if test="teachesex != null">
+        teachesex = #{teachesex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacherid = #{teacherid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lovo.model.TeacherEntity">
+    update t_teacher
+    set teachername = #{teachername,jdbcType=VARCHAR},
+      classname = #{classname,jdbcType=VARCHAR},
+      teacherbirthday = #{teacherbirthday,jdbcType=DATE},
+      teachesex = #{teachesex,jdbcType=VARCHAR}
+    where teacherid = #{teacherid,jdbcType=VARCHAR}
+  </update>
+</mapper>
